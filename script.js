@@ -15,6 +15,8 @@ app.use(cors())
 
 const PORT = process.env.PORT || 3000
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+
 const db = knex({
     client: 'pg',
     connection: {
@@ -23,7 +25,7 @@ const db = knex({
     }
 })
 
-app.get('/', (req, res)=> { res.send('The Server is working fine')})
+app.get('/', (req, res)=> { db.select('*').from('users').then(data => {res.send(data)})})
 
 app.post('/signin', signin.handleSignin(db,bcrypt))
 
