@@ -23,7 +23,7 @@ const db = knex({
     }
 })
 
-app.get('/', (req, res)=> { db('users').select.then(data => res.send(data))})
+app.get('/', (req, res)=> { res.send('The Server is working fine')})
 
 app.post('/signin', signin.handleSignin(db,bcrypt))
 
